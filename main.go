@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-const w = 4
-const h = 4
+const w = 9
+const h = 9
 const points = w * h
 
 // Point - es donde se guardaran las distancias
@@ -81,11 +81,23 @@ func printList(L *[points]Point) {
 
 func main() {
 
+	// var mInicial = [w][h]int{
+	// 	{0, 2, 3, 4},
+	// 	{133, 12, 1, 44},
+	// 	{144, 1, 135, 24},
+	// 	{1, 2, 3, 4},
+	// }
+
 	var mInicial = [w][h]int{
-		{0, 2, 3, 4},
-		{133, 12, 1, 44},
-		{144, 1, 135, 24},
-		{1, 2, 3, 4},
+		{0, 4, 0, 0, 0, 0, 0, 8, 0},
+		{4, 0, 8, 0, 0, 0, 0, 11, 0},
+		{0, 8, 0, 7, 0, 4, 0, 0, 2},
+		{0, 0, 7, 0, 9, 14, 0, 0, 0},
+		{0, 0, 0, 9, 0, 10, 0, 0, 0},
+		{0, 0, 4, 14, 10, 0, 2, 0, 0},
+		{0, 0, 0, 0, 0, 2, 0, 1, 6},
+		{8, 11, 0, 0, 0, 0, 1, 0, 7},
+		{0, 0, 2, 0, 0, 0, 6, 7, 0},
 	}
 
 	var lVis = getPointsArray()
@@ -173,7 +185,7 @@ func main() {
 	}
 
 	// Impresion de listado completo, con todas las distancias
-	//printList(&lVis)
+	printList(&lVis)
 
-	fmt.Printf("La distancia mas corta desde la fuente (0,0)\nal extremo opuesto (%d,%d), es %d.", h, w, lVis[points-1].dist)
+	//fmt.Printf("La distancia mas corta desde la fuente (0,0)\nal extremo opuesto (%d,%d), es %d.", h, w, lVis[points-1].dist)
 }
