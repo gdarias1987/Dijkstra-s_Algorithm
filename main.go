@@ -2,15 +2,13 @@ package main
 
 import (
 	"fmt"
-	//	"math"
-	//	"net/http"
-	//	"strconv"
 )
 
 const w = 4
 const h = 4
 const points = w * h
 
+// Point - es donde se guardaran las distancias
 type Point struct {
 	x    int
 	y    int
@@ -18,6 +16,7 @@ type Point struct {
 	vis  bool
 }
 
+// Infinity - Variable con valor "inifito"
 const Infinity = int(^uint(0) >> 1)
 
 func getPathMatrix() [w][h]int {
@@ -92,12 +91,6 @@ func printList(L *[points]Point) {
 	}
 }
 
-func printMPath(P *[h][w]int) {
-	for i := 0; i < h; i++ {
-		fmt.Println(P[i])
-	}
-}
-
 func main() {
 
 	var mInicial = [w][h]int{
@@ -107,10 +100,8 @@ func main() {
 		{1, 2, 3, 4},
 	}
 
-	// var mPath = getPathMatrix()
 	var lVis = getPointsArray()
 
-	// var init Point = Point{0, 0, 0, true}
 	var init Point = lVis[0]
 
 	for ok := true; ok; ok = init.vis == true {
@@ -121,9 +112,8 @@ func main() {
 		//Right
 		if X < w-1 {
 			var control = mInicial[Y][X+1] + init.dist
-			var actual = getPointDist(Y, X+1, &lVis) //mPath[Y][X+1]
+			var actual = getPointDist(Y, X+1, &lVis)
 			if control < actual {
-				//mPath[Y][X+1] = control
 				setPointDist(X+1, Y, control, &lVis)
 			}
 		}
@@ -131,9 +121,8 @@ func main() {
 		//Down
 		if Y < (h - 1) {
 			var control = mInicial[Y+1][X] + init.dist
-			var actual = getPointDist(Y+1, X, &lVis) //mPath[Y+1][X]
+			var actual = getPointDist(Y+1, X, &lVis)
 			if control < actual {
-				//mPath[Y+1][X] = control
 				setPointDist(X, Y+1, control, &lVis)
 			}
 		}
@@ -141,9 +130,8 @@ func main() {
 		//Down-Right
 		if X < w-1 && Y < h-1 {
 			var control = mInicial[Y+1][X+1] + init.dist
-			var actual = getPointDist(Y+1, X+1, &lVis) // mPath[Y+1][X+1]
+			var actual = getPointDist(Y+1, X+1, &lVis)
 			if control < actual {
-				//mPath[Y+1][X+1] = control
 				setPointDist(X+1, Y+1, control, &lVis)
 			}
 		}
@@ -151,9 +139,8 @@ func main() {
 		//Down-Left
 		if X >= 1 && Y < h-1 {
 			var control = mInicial[Y+1][X-1] + init.dist
-			var actual = getPointDist(Y+1, X-1, &lVis) // mPath[Y+1][X-1]
+			var actual = getPointDist(Y+1, X-1, &lVis)
 			if control < actual {
-				//mPath[Y+1][X-1] = control
 				setPointDist(X-1, Y+1, control, &lVis)
 			}
 		}
@@ -161,9 +148,8 @@ func main() {
 		//Left
 		if X >= 1 {
 			var control = mInicial[Y][X-1] + init.dist
-			var actual = getPointDist(Y, X-1, &lVis) // mPath[Y][X-1]
+			var actual = getPointDist(Y, X-1, &lVis)
 			if control < actual {
-				//mPath[Y][X-1] = control
 				setPointDist(X-1, Y, control, &lVis)
 			}
 		}
@@ -171,9 +157,8 @@ func main() {
 		//Up
 		if Y >= 1 {
 			var control = mInicial[Y-1][X] + init.dist
-			var actual = getPointDist(Y-1, X, &lVis) // mPath[Y-1][X]
+			var actual = getPointDist(Y-1, X, &lVis)
 			if control < actual {
-				//mPath[Y-1][X] = control
 				setPointDist(X, Y-1, control, &lVis)
 			}
 		}
@@ -181,9 +166,8 @@ func main() {
 		//Up-Left
 		if X >= 1 && Y >= 1 {
 			var control = mInicial[Y-1][X-1] + init.dist
-			var actual = getPointDist(Y-1, X-1, &lVis) // mPath[Y-1][X-1]
+			var actual = getPointDist(Y-1, X-1, &lVis)
 			if control < actual {
-				//mPath[Y-1][X-1] = control
 				setPointDist(X-1, Y-1, control, &lVis)
 			}
 		}
@@ -191,9 +175,8 @@ func main() {
 		//Up-Right
 		if X < w-1 && Y >= 1 {
 			var control = mInicial[Y-1][X+1] + init.dist
-			var actual = getPointDist(Y-1, X+1, &lVis) // mPath[Y-1][X+1]
+			var actual = getPointDist(Y-1, X+1, &lVis)
 			if control < actual {
-				//mPath[Y-1][X+1] = control
 				setPointDist(X+1, Y-1, control, &lVis)
 			}
 		}
@@ -201,6 +184,8 @@ func main() {
 		init = getNextPoint(&lVis)
 	}
 
+	// Impresion de listado completo, con todas las distancias
 	//printList(&lVis)
+
 	fmt.Printf("La distancia mas corta desde la fuente (0,0)\nal extremo opuesto (%d,%d), es %d.", h, w, lVis[points-1].dist)
 }
