@@ -19,18 +19,6 @@ type Point struct {
 // Infinity - Variable con valor "inifito"
 const Infinity = int(^uint(0) >> 1)
 
-func getPathMatrix() [w][h]int {
-	var mAux [w][h]int
-
-	for i := 0; i < w; i++ {
-		for j := 0; j < h; j++ {
-			mAux[i][j] = Infinity
-		}
-	}
-	mAux[0][0] = 0
-	return mAux
-}
-
 func getPointsArray() [points]Point {
 	var listado [points]Point
 	count := 0
